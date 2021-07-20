@@ -17,30 +17,19 @@ class Task {
   isOverdue(){
     let now = new Date();
     let diffDate = this.dueDate - now
-    if (diffDate > 0){
-        return true;
-    } else {
-        return false;
-    } 
+    return diffDate > 0;
   }
 
-  convertDate(dueDate) {
-  //dueDate = dueDate.getDate() + '' + monthsAre[ dueDate.getMonth() - 1 ];
-  
-  let day = dueDate.getDate();
-  console.log(day);
- }
-
   toString() {
-    this.done ? this.done = "[x]" : this.done = "[ ]";
+    const mark = this.done ? "[x]" : "[ ]";
     if (this.count < 10) {
-        return `${this.count}. ${this.done} ${this.title} (${this.dueDate}) \n   ${this.desc}`;
+        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n   ${this.desc}`;
     } else if (this.count < 100) {
-        return `${this.count}. ${this.done} ${this.title} (${this.dueDate}) \n    ${this.desc}`;
+        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n    ${this.desc}`;
     } else if (this.count < 1000) {
-        return `${this.count}. ${this.done} ${this.title} (${this.dueDate}) \n     ${this.desc}`;
+        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n     ${this.desc}`;
     } else {
-        return `${this.count}. ${this.done} ${this.title} (${this.dueDate}) \n      ${this.desc}`;
+        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n      ${this.desc}`;
     }
   };
 }
@@ -51,7 +40,7 @@ data1.setYear(2021);
 
 let task = new Task();
 task.count = 1000;
-task.done = false;
+task.done = true;
 task.title = "The test task";
 task.dueDate = data1;
 task.desc = "Description 1"
@@ -59,6 +48,8 @@ task.desc = "Description 1"
 task.toString();
 task.toggle();
 task.isOverdue();
-console.log(task.convertDate());
 console.log(task.isOverdue());
 console.log(task.toString());
+//console.log(
+//    `${this.count}. ` +  `${this.done}` + `${this.title}` +  `${ "(" + this.dueDate.toLocalDateScring('en-US', options) + ")" }`
+//);
