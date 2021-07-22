@@ -38,18 +38,24 @@ data1.setDate(21);
 data1.setMonth(10);
 data1.setYear(2021);
 
-let task = new Task();
-task.count = 1000;
-task.done = true;
-task.title = "The test task";
-task.dueDate = data1;
-task.desc = "Description 1"
+module.exports.taskObject = taskObject = new Task(
+  1000,
+  true,
+ "The test task",
+  data1,
+  "Description 1"
+);
+// taskObject.count = 1000;
+// taskObject.done = true;
+// taskObject.title = "The test task";
+// taskObject.dueDate = data1;
+// taskObject.desc = "Description 1"
 
-task.toString();
-task.toggle();
-task.isOverdue();
-console.log(task.isOverdue());
-console.log(task.toString());
+taskObject.toString();
+taskObject.toggle();
+taskObject.isOverdue();
+console.log(taskObject.isOverdue());
+console.log(taskObject.toString());
 //console.log(
 //    `${this.count}. ` +  `${this.done}` + `${this.title}` +  `${ "(" + this.dueDate.toLocalDateScring('en-US', options) + ")" }`
 //);
