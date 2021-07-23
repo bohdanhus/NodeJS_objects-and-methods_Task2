@@ -1,7 +1,7 @@
-const taskObject = require("./objectAndMethod").taskObj;
+const taskObject = require("./objectAndMethod");
+
 
 describe("object", () => {
-    
     it("toggle test", () => {
 		taskObject.toggle();
 		expect(taskObject.done).toBe(false);
