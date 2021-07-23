@@ -39,8 +39,8 @@ function checkForAWinner (board) {
     if (
         /* найдена победная комбинация, нужно проверить доску
         на ёё наличие и если она присутствует то узнать какой символ */
-       ) {
-            endOfTheGame()
+    ) {
+        endOfTheGame()
 
     } else if () {
         draw()
@@ -49,7 +49,7 @@ function checkForAWinner (board) {
 
 function draw (board) {
 
-        };
+};
 function endOfTheGame(symbol) {
     if (symbol == "x"){
         console.log("Крестики победили!");
