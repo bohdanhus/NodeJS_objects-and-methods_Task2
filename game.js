@@ -1,38 +1,51 @@
 const prompt = require('prompt');
-// board[0] = ['0', '1', '2'];board[1] = ['0', '1', '2'];board[2] = ['0', '1', '2'];
+
 let board = [['', '', ''], ['', '', ''], ['', '', '']];
 
-function main() {
-    let newBoard = [...board];
-    console.log(printBoard(newBoard));
-
-    const game = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-        [1, 5, 9],
-        [3, 5, 7],
-        [2, 5, 8],
-        [1, 4, 7],
-        [3, 6, 9]
-    ];
-    function printBoard(array) {
-        let field = "";
-        for (let j = 0; j < array.length; j++) {
-            for (let n = 0; n < array.length; n++) {
-                if (n === 0) {
-                    field += "  |";
-                }
-                if (n === 1) {
-                    field += " | ";
-                } else field += " "
+function printBoard(board) {//Печать поля с сеткой
+    let field = "";
+    for (let j = 0; j < board.length; j++) {
+        for (let n = 0; n < board.length; n++) {
+            if (n === 0) {
+                field += "  |";
             }
-            if (j !== 2) {
-                field += "\n---------\n"
-            }
+            if (n === 1) {
+                field += " | ";
+            } else field += " "
         }
-        return field
+        if (j !== 2) {
+            field += "\n---------\n"
+        }
     }
+    return field
+}
+
+function checkGameStates(board, symbol) {
+    if (
+        board[0][0] === symbol && board[0][1] === symbol && board[0][2] === symbol || // Rows
+        board[1][0] === symbol && board[1][1] === symbol && board[1][2] === symbol ||
+        board[2][0] === symbol && board[2][1] === symbol && board[2][2] === symbol ||
+        board[0][0] === symbol && board[1][0] === symbol && board[2][0] === symbol ||// Columns
+        board[0][1] === symbol && board[1][1] === symbol && board[2][1] === symbol ||
+        board[0][2] === symbol && board[1][2] === symbol && board[2][2] === symbol ||
+        board[0][0] === symbol && board[1][1] === symbol && board[2][2] === symbol ||  // Diagonals
+        board[0][2] === symbol && board[1][1] === symbol && board[2][0] === symbol ||;
+    )
+    {
+        return true;
+    }
+    return false;
+}
+
+function createMove(board) {//Выполнения хода игрока (изменения игрового поля)
+
+}
+
+//Реализовать процесс игры в функции main, используя функции выше для проверки
+function main() {
+    console.log(printBoard(board));
+    checkGameStates(board);
+    createUserMove();
 }
 
 main();
