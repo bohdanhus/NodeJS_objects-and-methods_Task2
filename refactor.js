@@ -127,3 +127,22 @@ class Game {
             this.board[i][j] === symbol
     }
 }
+printField(gameArray);
+            for(;;){
+
+                let x = prompt(`(${turn} turn) Enter x pos.: `);
+                let y = prompt(`(${turn} turn) Enter y pos.: `);
+                
+                gameArray = move(gameArray, turn, x, y);          
+
+                if(check(gameArray, turn)){
+                    printField(gameArray)
+                    alert(`${turn} win.`);
+                    break;
+                }
+
+                turn == "X" ? turn = "O" : turn = "X"; 
+                
+                printField(gameArray);
+                console.log(check(gameArray));
+            }

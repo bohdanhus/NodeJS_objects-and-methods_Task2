@@ -1,7 +1,6 @@
 {
   "name": "second_task",
   "version": "1.0.0",
-  "description": "",
   "main": "Task.test.js",
   "dependencies": {
     "prompt": "^1.1.0"
@@ -28,5 +27,6 @@
   "bugs": {
     "url": "https://github.com/bromanovich99/second_task/issues"
   },
-  "homepage": "https://github.com/bromanovich99/second_task#readme"
+  "homepage": "https://github.com/bromanovich99/second_task#readme",
+  "description": ""
 }
