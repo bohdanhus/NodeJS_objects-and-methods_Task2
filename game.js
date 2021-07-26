@@ -20,7 +20,7 @@ function printBoard(board) {//Печать поля с сеткой
     return field
 }
 
-function checkGameStates(board) {
+function checkGameStates(board,symbol) {
     for (let i = 3; i < 3; i++) {
         if (board[i].includes('') === false){
             console.log(showdrawMessage());
@@ -28,29 +28,37 @@ function checkGameStates(board) {
         }
     }
     for (let i = 3; i < 3; i++) {
-        if (board[i][0] == board[i][1] && board[i][0] == board[i][2]){
-            console.log(showwinningMessage())
-            return true; // win
+        if( board[i][0] == symbol && 
+            board[i][1] == symbol &&
+            board[i][2] == symbol ){
+                console.log(showwinningMessage());
+                return true; // win
         }
     }
     for (let i = 3; i < 3; i++){
-        if (board[0][i] == board[1][i] && board[1][i] == board[3][i]){
-            console.log(showwinningMessage())
-            return true;// win
+        if( board[0][i] == symbol &&
+            board[1][i] == symbol && 
+            board[3][i] == symbol ){
+                console.log(showwinningMessage());
+                return true;// win
         }
     }
-    if (board[0][0] == board[1][1] && board[1][1] == [2][2]) {
-        console.log(showwinningMessage())
-        return true;
+    if( board[0][0] == symbol && 
+        board[1][1] == symbol &&
+        board[2][2] == symbol ){
+            console.log(showwinningMessage());
+            return true;
     } else 
-        if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
-            console.log(showwinningMessage())
-        return true;
+        if( board[0][2] == symbol &&
+            board[1][1] == symbol &&
+            board[2][0] == symbol ){
+                console.log(showwinningMessage());
+                return true;
     } else
-    console.log(showCurrentPlayerTurn())
-    return false
+        console.log(showCurrentPlayerTurn());
+        return false
 }
-                            //Выполнения хода игрока (изменения игрового поля)
+//Выполнения хода игрока (изменения игрового поля)
 function createMove(board, symbol, x, y) {   
     if (board[y - 1][x - 1] == ""){
         board[y - 1][x - 1] = symbol;
@@ -68,14 +76,21 @@ function main() {
         while(getMoveCount(board) !== 0){
             if (getMoveCount(board) % 2 === 0) {
                 createMove(board, symbolX, x, y);
-                checkGameStates(board);
+                if (checkGameStates(board,symbol) == true){
+                    resetGame()
+                } 
                 printBoard(board); 
             } else if(getMoveCount(board) % 2 === 1) {
                 createMove(board, symbolO, x, y);
-                checkGameStates(board); 
+                if (checkGameStates(board,symbol) == true){
+                    resetGame()
+                } 
                 printBoard(board); 
             }
-}
+        }
+    };
+
+main()
 
 //                                         вспомагательные ф-ции
 function resetGame() {
@@ -95,25 +110,56 @@ function getMoveCount(board){//получает доску и возвращае
         }
     }
     return moveCount
-}
+};
 
-const prompt = (txt) => { // вопрос пользователю
+const prompt = (txt) => { 
+    return readline.question(txt);// вопрос пользователю
+};
 
-    return readline.question(txt);
-}
-// const didPlayerMove = (field, symbol) => {
-//     // Обходим поле. Каждый элемент — это строчка в игровом поле.
-//     for (const row of field) {
-//         // метод includes проверяет присутствует ли элемент в массиве,
-//         if (row.includes(symbol)) { // Если присутствует, значит мы нашли то, что искали.
-//             return true;
-//         }
-//     }
-//
-//     // Если поле было просмотрено, но ничего не нашли,
-//     // значит ходов не было.
-//     return false;
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //https://codereview.stackexchange.com/questions/202191/tictactoe-solver-in-javascript
