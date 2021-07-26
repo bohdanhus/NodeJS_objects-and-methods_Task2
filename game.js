@@ -1,7 +1,42 @@
-const readline = require('readline');
-const showwinningMessage = () => `Player ${currentPlayer} has won!`;
+const net = require('net') // server api
+
+const clients = []
+
+const server = net.createServer(function(socket) {
+	socket.write('Echo server\r\n');
+	const port = socket.remotePort;
+	console.log('Client IP. Port: ', socket.remoteAddress);
+	console.log('Client connected. Port: ', port);
+	socket.on('close', () => {
+		let index = clients.indexOf(socket);
+		clients.splice(index, 1);
+		console.log('Closed ', port)
+	})
+	clients.push(socket)
+	socket.on('data', (message) => {		
+		clients.forEach(client => {
+			if (client !== socket) {
+				client.write(message);
+			}
+		})
+	})
+	socket.pipe(process.stdout)
+});
+
+server.listen(1337, '127.0.0.1');
+server.on('listening', () => { console.log('Listening on ', server.address()); })
+
+//---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++---__+++
+
+const showwinningMessage = () => `Player has won!`; //${currentPlayer}
 const showdrawMessage = () => `The game ended in a draw`;
-const showCurrentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+const showCurrentPlayerTurn = () => `It's s turn`;
+
+// const prom = (txt) => { 
+//     let readline = require('readline');
+//     return readline.question(txt);// вопрос пользователю
+// };cat
+
 function printBoard(board) {//Печать поля с сеткой
     let field = "";
     for (let j = 0; j < board.length; j++) {
@@ -71,7 +106,7 @@ function main() {
     let board = [...gameMap];
     let symbolX = 'x'
     let symbolO = 'o'
-    let x, y = prompt('Turn [x, y] on keyboard!') //  symbol == 'x' ? SocketO = 'o' : SocketX = 'o';
+    let symbol == 'x' ? SocketO = 'o' : SocketX = 'x';
     printBoard(board); 
         while(getMoveCount(board) !== 0){
             if (getMoveCount(board) % 2 === 0) {
@@ -99,7 +134,6 @@ function resetGame() {
       main()
   } 
 };
-
 function getMoveCount(board){//получает доску и возвращает количество сыгранных ходов.
     let moveCount = 0;
     for (let i = 0; i<board.length; i++){
@@ -110,10 +144,6 @@ function getMoveCount(board){//получает доску и возвращае
         }
     }
     return moveCount
-};
-
-const prompt = (txt) => { 
-    return readline.question(txt);// вопрос пользователю
 };
 
 
