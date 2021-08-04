@@ -16,23 +16,22 @@ class Task {
 
   isOverdue(){
     let now = new Date();
-    let diffDate = this.dueDate - now
-    return diffDate > 0;
+    if (curDate - this.dateNum < 0) {
+      return false; // 'not overdue yet'
+    } else {
+      return true; // 'alredy overdued!'
+    }
   }
 
   toString() {
-    const mark = this.done ? "[x]" : "[ ]";
-    if (this.count < 10) {
-        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n   ${this.desc}`;
-    } else if (this.count < 100) {
-        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n    ${this.desc}`;
-    } else if (this.count < 1000) {
-        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n     ${this.desc}`;
-    } else {
-        return `${this.count}. ${mark} ${this.title} (${this.dueDate}) \n      ${this.desc}`;
-    }
+      this.done = this.done === ? 'x' : '';
+          if (this.done === 'x') {
+             return `${this.count}. [${this.done}] ${this.title} (${this.dueDate})`;
+          } else {
+             return `${this.count}. [${this.done}] ${this.title}`;
+      }
   };
-}
+
 let data1 = new Date();
 data1.setDate(21);
 data1.setMonth(10);
