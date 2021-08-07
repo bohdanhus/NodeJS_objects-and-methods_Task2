@@ -1,60 +1,82 @@
-let monthsAre = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-
 class Task {
-  constructor(count, done, title, dueDate, desc) {
-    this.count = count;
-    this.done = done;
-    this.title = title;
-    this.dueDate = dueDate;
-    this.desc = desc;
-  }
-
-  toggle() {
-    this.done = !this.done;
-  }
-
-  isOverdue(){
-    let now = new Date();
-    if (curDate - this.dateNum < 0) {
-      return false; // 'not overdue yet'
-    } else {
-      return true; // 'alredy overdued!'
+  
+    constructor(id, done, title, dueDate, description) {
+        this.id = id;
+        this.done = done;
+        this.title = title;//[x] - задача выполнена. [ ] - задача открыта
+        this.dueDate = dueDate; //вывод даты завершения, если задана
+        this.description = description;//вывод описания задачи, если задано.
     }
-  }
 
-  toString() {
-      this.done = this.done === ? 'x' : '';
-          if (this.done === 'x') {
-             return `${this.count}. [${this.done}] ${this.title} (${this.dueDate})`;
-          } else {
-             return `${this.count}. [${this.done}] ${this.title}`;
-      }
-  };
+    toString() {
+        const options = {month: 'short', day: 'numeric'};
+        let adaptedDate = this.dueDate !== undefined ? `${"(" + this.dueDate.toLocaleDateString('en-US', options) + ")"}` : '';
 
-let data1 = new Date();
-data1.setDate(21);
-data1.setMonth(10);
-data1.setYear(2021);
+        let done = this.done ? '[x]' : '[ ]';
 
-module.exports.taskObject = taskObject = new Task(
-  1000,
-  true,
- "The test task",
-  data1,
-  "Description 1"
-);
-// taskObject.count = 1000;
-// taskObject.done = true;
-// taskObject.title = "The test task";
-// taskObject.dueDate = data1;
-// taskObject.desc = "Description 1"
+        if (this.dueDate === "" || undefined) {
+            if (this.description === "" || undefined) {
+                return (`${this.id}. ${done} ${this.title}`)
+            } else {
+                return (`${this.id}. ${done} ${this.title}\n  ${this.description}`)
+            }
+        } else {
+            if (this.description === "" || undefined) {
+                return (`${this.id}. ${done} ${this.title} ${adaptedDate}`)
+            }
+            return (`${this.id}. ${done} ${this.title} ${adaptedDate}\n   ${this.description}`)
+        }
+    }
 
-taskObject.toString();
-taskObject.toggle();
-taskObject.isOverdue();
-console.log(taskObject.isOverdue());
-console.log(taskObject.toString());
-//console.log(
-//    `${this.count}. ` +  `${this.done}` + `${this.title}` +  `${ "(" + this.dueDate.toLocalDateScring('en-US', options) + ")" }`
-//);
+    toogle() {
+        this.done = !this.done;
+    }
+
+    isOverdue() {
+        let currentDate = new Date();
+        if (currentDate - this.dueDate < 0) {
+            return true;
+        } else {
+            return false; // 'alredy overdued!'
+        }
+    }
+  
+    postponeDay(timeSpan) {
+        this.dueDate.setDate(this.dueDate.getDate() + timeSpan);
+    }
+  
+    setDescription(description) {
+        this.description = description;
+    }
+}
+const exampleDate = new Date(2021, 7, 4);
+let exampleTask = new Task(1, false, 'Implement task output', exampleDate,);
+
+console.log(`\n\n\n toString - Пример печати на экран, смотрите ниже. \n`)
+console.log(exampleTask.toString());
+
+console.log(`\n\n toggle - переключает статус задачи. Отлично, задача выполнена!\n`);
+exampleTask.toogle();
+console.log(exampleTask.toString());
+
+console.log(`\n\n\n setDescription - Задает описание задачи, результат можно увидеть ниже.\n`);
+exampleTask.setDescription('Use fields: title, desc, done, dueDate');
+console.log(exampleTask.toString());
+
+console.log(`\n\n\n isOverdue - возвращает true если задача просрочена. Иначе false.\n`);
+console.log(exampleTask.toString());
+console.log(exampleTask.isOverdue());
+
+console.log(`\n\n\n postponeDay - откладывает срок выполнения задачи на указное время (B днях).\n`);
+exampleTask.postponeDay(21);
+console.log(exampleTask.toString());
+
+console.log(`\n\n\n Теперь задача прострочена! Проверим это применив функцию isOverdue()+\n`);
+console.log(exampleTask.toString());
+console.log(exampleTask.isOverdue());
+
+
+
+const testDate = new Date(2021, 7, 4);
+module.exports.testTask =  new Task(1, false, 'Implement task output', testDate,);
+
